@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 
 public class RequestPool {
-    private ArrayList<Request> requests = new ArrayList<>();
+    private volatile ArrayList<Request> requests = new ArrayList<>();
 
     public RequestPool() {
 

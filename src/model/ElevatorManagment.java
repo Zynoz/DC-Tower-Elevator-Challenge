@@ -35,6 +35,7 @@ public class ElevatorManagment {
     /**
      * This method creates a new thread that runs through the elevator-procedure
      */
+    //TODO fix current floor!
     private synchronized void workRequest() {
         Thread thread = new Thread(() -> {
             if (elevatorPool.hasFreeElevator() && requestPool.hasNextRequest()) {
@@ -51,9 +52,9 @@ public class ElevatorManagment {
                     e.printStackTrace();
                 }
 
-                elevator.setCurrentFloor(request.getRequestToFloor());
+                elevator.setCurrentFloor();
                 elevatorPool.returnElevator(elevator);
-                System.out.println("Elevator " + elevator.getElevatorID() + " is now on floor " + elevator.getCurrentFloor());
+                System.out.println("Elevator " + elevator.getElevatorID() + " is now done with " + elevator.getCurrentRequest().getRequestID() + " and on floor " + elevator.getCurrentFloor());
             }
         });
         thread.start();

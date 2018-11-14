@@ -10,11 +10,11 @@ public class Elevator {
 
     public Elevator(int elevatorID) {
         this.elevatorID = elevatorID;
-        setCurrentFloor(0);
+        currentFloor = 0;
     }
 
-    public void setCurrentFloor(int currentFloor) {
-        this.currentFloor = currentFloor;
+    public void setCurrentFloor() {
+        this.currentFloor = currentRequest.getRequestToFloor();
     }
 
     public void setGoingTo(int goingTo) {

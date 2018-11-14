@@ -9,14 +9,14 @@ public class Main {
         ElevatorManagment elevatorManagment = new ElevatorManagment();
 
         try {
-            Request r1 = new Request(0, 10);
-            Request r2 = new Request(10, 0);
-            Request r3= new Request(5, 50);
-            Request r4 = new Request(4, 35);
-            Request r5 = new Request(6, 0);
-            Request r6 = new Request(10, 0);
+            Request r1 = new Request(0, 1);
+            Request r2 = new Request(2, 3);
+            Request r3= new Request(4, 6);
+            Request r4 = new Request(7, 5);
+            Request r5 = new Request(30, 0);
+            Request r6 = new Request(23, 6);
             Request r7= new Request(5, 50);
-            Request r8 = new Request(4, 35);
+            Request r8 = new Request(45, 35);
 
 
             elevatorManagment.addRequest(r1);
