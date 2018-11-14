@@ -3,9 +3,8 @@ package model;
 import java.util.ArrayList;
 
 public class ElevatorManagment {
-    private ArrayList<Elevator> elevatorsInUse = new ArrayList<>(7);
-    private ArrayList<Elevator> freeElevators = new ArrayList<>(7);
-    private ArrayList<Request> requests = new ArrayList<>();
+    private ElevatorPool elevatorPool = new ElevatorPool();
+    private RequestPool requestPool = new RequestPool();
 
     public ElevatorManagment() {
         setup();
@@ -15,24 +14,9 @@ public class ElevatorManagment {
      * Create all elevators and add them to freeElevators
      */
     private void setup() {
-        Elevator e1 = new Elevator(1);
-        Elevator e2 = new Elevator(2);
-        Elevator e3 = new Elevator(3);
-        Elevator e4 = new Elevator(4);
-        Elevator e5 = new Elevator(5);
-        Elevator e6 = new Elevator(6);
-        Elevator e7 = new Elevator(7);
-
-        freeElevators.add(e1);
-        freeElevators.add(e2);
-        freeElevators.add(e3);
-        freeElevators.add(e4);
-        freeElevators.add(e5);
-        freeElevators.add(e6);
-        freeElevators.add(e7);
-
 
     }
+
 
     /**
      * This method takes in a request and adds it to the request list
@@ -40,48 +24,42 @@ public class ElevatorManagment {
      * @throws ElevatorException
      */
     public void addRequest(Request request) throws ElevatorException {
-        if (request != null) {
-            requests.add(request);
-            System.out.println("request added");
-            workRequest();
-        } else {
-            throw new ElevatorException("Request not valid");
-        }
+        requestPool.add(request);
     }
 
     /**
      * This method creates a new thread that runs through the elevator-procedure
      */
-    private void workRequest() {
-        Thread t = new Thread(() -> {
-            if ((freeElevators.size() >= 1) && (requests.size() >= 1)) {
-                Elevator elevator = freeElevators.get(0);
-                Request request = requests.get(0);
-
-                elevatorsInUse.add(elevator);
-
-                elevator.setCurrentRequest(requests.get(0));
-
-                freeElevators.remove(elevator);
-                requests.remove(request);
-
-                System.out.println("Elevator " + elevator.getElevatorID() + " is going from floor " + elevator.getCurrentRequest().getRequestFromFloor() + " to floor " + elevator.getCurrentRequest().getRequestToFloor() + "; Direction: " + elevator.getCurrentRequest().isGoingUp());
-                System.out.println("");
-                System.out.println("elevatorsInUse: " + elevatorsInUse.size());
-                System.out.println("freeElevators: " + freeElevators.size());
-
-                //Time it takes the elevator to fulfil the request
-                try {
-                    Thread.sleep(elevator.getDelay());
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                freeElevators.add(elevator);
-                elevatorsInUse.remove(elevator);
-                elevator.setCurrentFloor(request.getRequestToFloor());
-                System.out.println("Elevator " + elevator.getElevatorID() + " arrived on floor " + elevator.getCurrentFloor());
-            }
-        });
-        t.start();
+    private synchronized void workRequest() {
+//        Thread thread = new Thread(() -> {
+//            if ((freeElevators.get(0) != null) && (requestPool.size() >= 1)) {
+//                Elevator elevator = freeElevators.get(0);
+//                Request request = requestPool.get(0);
+//
+//                elevatorsInUse.add(elevator);
+//
+//                elevator.setCurrentRequest(requestPool.get(0));
+//
+//                freeElevators.remove(elevator);
+//                requestPool.remove(request);
+//
+//                System.out.println("Elevator " + elevator.getElevatorID() + " is going from floor " + elevator.getCurrentRequest().getRequestFromFloor() + " to floor " + elevator.getCurrentRequest().getRequestToFloor() + "; Direction: " + elevator.getCurrentRequest().isGoingUp());
+//                System.out.println();
+//                System.out.println("elevatorsInUse: " + elevatorsInUse.size());
+//                System.out.println("freeElevators: " + freeElevators.size());
+//                System.out.println();
+//
+//                //Time it takes the elevator to fulfil the request
+//                try {
+//                    Thread.sleep(elevator.getDelay());
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//
+//                elevator.setCurrentFloor(request.getRequestToFloor());
+//                System.out.println("Elevator " + elevator.getElevatorID() + " arrived on floor " + elevator.getCurrentFloor());
+//            }
+//        });
+//        thread.start();
     }
 }
