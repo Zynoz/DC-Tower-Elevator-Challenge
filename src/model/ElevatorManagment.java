@@ -34,6 +34,11 @@ public class ElevatorManagment {
 
     }
 
+    /**
+     * This method takes in a request and adds it to the request list
+     * @param request request to add
+     * @throws ElevatorException
+     */
     public void addRequest(Request request) throws ElevatorException {
         if (request != null) {
             requests.add(request);
@@ -44,6 +49,9 @@ public class ElevatorManagment {
         }
     }
 
+    /**
+     * This method creates a new thread that runs through the elevator-procedure
+     */
     private void workRequest() {
         Thread t = new Thread(() -> {
             if ((freeElevators.size() >= 1) && (requests.size() >= 1)) {
