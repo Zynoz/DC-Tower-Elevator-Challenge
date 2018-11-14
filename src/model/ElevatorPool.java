@@ -3,8 +3,7 @@ package model;
 import java.util.ArrayList;
 
 public class ElevatorPool {
-    private ArrayList<Elevator> freeElevators = new ArrayList<>();
-    private ArrayList<Elevator> inUseElevators = new ArrayList<>();
+    private volatile ArrayList<Elevator> elevators = new ArrayList<>(7);
 
     public ElevatorPool() {
         Elevator e1 = new Elevator(1);
@@ -15,28 +14,37 @@ public class ElevatorPool {
         Elevator e6 = new Elevator(6);
         Elevator e7 = new Elevator(7);
 
-        freeElevators.add(e1);
-        freeElevators.add(e2);
-        freeElevators.add(e3);
-        freeElevators.add(e4);
-        freeElevators.add(e5);
-        freeElevators.add(e6);
-        freeElevators.add(e7);
+        elevators.add(e1);
+        elevators.add(e2);
+        elevators.add(e3);
+        elevators.add(e4);
+        elevators.add(e5);
+        elevators.add(e6);
+        elevators.add(e7);
     }
 
-    public Elevator getFreeElevator() {
-        if (freeElevators.get(0) != null) {
-            Elevator free = freeElevators.get(0);
-            freeElevators.remove(free);
-            inUseElevators.add(free);
-            return free;
-        } else {
-            return null;
+    public synchronized Elevator getFreeElevator() {
+        for (Elevator e : elevators) {
+            if (!e.isInUse()) {
+                e.setInUse(true);
+                System.out.println("Elevator " + e.getElevatorID() + " in use now");
+                return e;
+            }
         }
+        return null;
+    }
+
+    public synchronized boolean hasFreeElevator() {
+        for (Elevator e : elevators) {
+            if (!e.isInUse()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void returnElevator(Elevator elevator) {
-
+        elevator.setInUse(false);
+        System.out.println("Elevator " + elevator.getElevatorID() + " is free again");
     }
-
 }

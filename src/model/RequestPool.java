@@ -22,11 +22,16 @@ public class RequestPool {
     }
 
     public Request getNextRequest() {
-//        if (requests.isEmpty()) {
-//            return null;
-//        } else {
-//            return requests.get(0);
-//        }
-        return requests.isEmpty() ? null : requests.get(0);
+        if (!requests.isEmpty()) {
+            Request request = requests.get(0);
+            requests.remove(request);
+            return request;
+        } else {
+            return null;
+        }
+    }
+
+    public boolean hasNextRequest() {
+        return !requests.isEmpty();
     }
 }

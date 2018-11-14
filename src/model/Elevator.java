@@ -6,6 +6,7 @@ public class Elevator {
     private int goingTo;
     private Request currentRequest;
     private int delay;
+    private boolean inUse;
 
     public Elevator(int elevatorID) {
         this.elevatorID = elevatorID;
@@ -29,19 +30,36 @@ public class Elevator {
     }
 
     public int getGoingTo() {
-        return goingTo;
+        return currentRequest.getRequestToFloor();
     }
 
     public void setCurrentRequest(Request request) {
         this.currentRequest = request;
+        goingTo = currentRequest.getRequestToFloor();
+    }
+
+    public boolean isInUse() {
+        return inUse;
+    }
+
+    public void setInUse(boolean inUse) {
+        this.inUse = inUse;
     }
 
     public Request getCurrentRequest() {
         return currentRequest;
     }
 
+    /**
+     * Calculates how long the elevator takes to get to the destination floor.
+     * @return duration in milliseconds
+     */
     public int getDelay() {
         return Math.abs(currentRequest.getRequestToFloor() - currentRequest.getRequestFromFloor()) * 1000;
+    }
+
+    public String isGoingUp() {
+        return currentFloor > goingTo ? "down" : "up";
     }
 
     @Override

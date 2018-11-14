@@ -14,7 +14,7 @@ public class Request {
     }
 
     public void setRequestFromFloor(int requestFromFloor) throws ElevatorException {
-        if ((requestFromFloor < 0) || requestFromFloor > 50) {
+        if ((requestFromFloor < 0) || requestFromFloor > 55) {
             throw new ElevatorException("Invalid floor number");
         } else {
             this.requestFromFloor = requestFromFloor;
@@ -22,7 +22,7 @@ public class Request {
     }
 
     public void setRequestToFloor(int requestToFloor) throws ElevatorException {
-        if ((requestToFloor < 0) || requestToFloor > 50) {
+        if ((requestToFloor < 0) || requestToFloor > 55) {
             throw new ElevatorException("Invalid floor number");
         } else {
             this.requestToFloor = requestToFloor;
@@ -30,11 +30,6 @@ public class Request {
     }
 
     public String isGoingUp() {
-//        if (requestFromFloor > requestToFloor) {
-//            return "down";
-//        } else {
-//            return "up";
-//        }
         return requestFromFloor > requestToFloor ? "down" : "up";
     }
 
