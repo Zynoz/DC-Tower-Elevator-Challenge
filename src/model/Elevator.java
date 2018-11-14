@@ -4,10 +4,12 @@ public class Elevator {
     private int elevatorID;
     private int currentFloor;
     private int goingTo;
-    private boolean directionUp;
+    private Request currentRequest;
+    private int delay;
 
     public Elevator(int elevatorID) {
         this.elevatorID = elevatorID;
+        setCurrentFloor(0);
     }
 
     public void setCurrentFloor(int currentFloor) {
@@ -16,10 +18,6 @@ public class Elevator {
 
     public void setGoingTo(int goingTo) {
         this.goingTo = goingTo;
-    }
-
-    public void setDirectionUp(boolean directionUp) {
-        this.directionUp = directionUp;
     }
 
     public int getElevatorID() {
@@ -34,8 +32,16 @@ public class Elevator {
         return goingTo;
     }
 
-    public boolean isDirectionUp() {
-        return directionUp;
+    public void setCurrentRequest(Request request) {
+        this.currentRequest = request;
+    }
+
+    public Request getCurrentRequest() {
+        return currentRequest;
+    }
+
+    public int getDelay() {
+        return Math.abs(currentRequest.getRequestToFloor() - currentRequest.getRequestFromFloor()) * 1000;
     }
 
     @Override
@@ -44,7 +50,7 @@ public class Elevator {
                 "elevatorID=" + elevatorID +
                 ", currentFloor=" + currentFloor +
                 ", goingTo=" + goingTo +
-                ", directionUp=" + directionUp +
+                ", currentRequest=" + currentRequest +
                 '}';
     }
 }

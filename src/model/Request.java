@@ -14,19 +14,28 @@ public class Request {
     }
 
     public void setRequestFromFloor(int requestFromFloor) throws ElevatorException {
-        if ((requestFromFloor <= 0) || requestFromFloor >= 50) {
-            throw new ElevatorException("No floor with this number");
+        if ((requestFromFloor < 0) || requestFromFloor > 50) {
+            throw new ElevatorException("Invalid floor number");
         } else {
             this.requestFromFloor = requestFromFloor;
         }
     }
 
     public void setRequestToFloor(int requestToFloor) throws ElevatorException {
-        if ((requestToFloor <= 0) || requestToFloor >= 50) {
-            throw new ElevatorException("No floor with this number");
+        if ((requestToFloor < 0) || requestToFloor > 50) {
+            throw new ElevatorException("Invalid floor number");
         } else {
             this.requestToFloor = requestToFloor;
         }
+    }
+
+    public String isGoingUp() {
+//        if (requestFromFloor > requestToFloor) {
+//            return "down";
+//        } else {
+//            return "up";
+//        }
+        return requestFromFloor > requestToFloor ? "down" : "up";
     }
 
     public String getRequestID() {
