@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 
 /**
+ * @author Maximilian Moser
  * This class manages the seven elevators.
  */
 public class ElevatorPool {
@@ -10,6 +11,7 @@ public class ElevatorPool {
 
     /**
      * Creates the seven elevators and adds them to the elevator list.
+     * @see Elevator
      */
     public ElevatorPool() {
         Elevator e1 = new Elevator(1);
@@ -31,8 +33,10 @@ public class ElevatorPool {
 
     /**
      * Loops through all elevators and returns a free one.
-     * @param request the request to assign to the elevator.
-     * @return null if no free elevator is available.
+     * @param request The request to assign to the elevator.
+     * @return Returns null if no free elevator is available.
+     * @see Elevator
+     * @see Request
      */
     public synchronized Elevator getFreeElevator(Request request) {
         for (Elevator e : elevators) {
@@ -47,7 +51,9 @@ public class ElevatorPool {
     }
 
     /**
-     * @return true if there is at least one free elevator.
+     * Returns true if there is at least one free elevator.
+     * @return  true if there is at least one free elevator.
+     * @see Elevator
      */
     public synchronized boolean hasFreeElevator() {
         for (Elevator e : elevators) {
@@ -59,8 +65,9 @@ public class ElevatorPool {
     }
 
     /**
-     * If an elevator is done with its request, it is returned to the free list of elevators.
-     * @param elevator
+     * If an {@code Elevator} is done with its request, it is 'returned' to the free list of elevators.
+     * @param elevator to return.
+     * @see Elevator
      */
     public void returnElevator(Elevator elevator) {
         elevator.setInUse(false);

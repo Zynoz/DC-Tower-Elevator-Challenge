@@ -11,6 +11,15 @@ public class Request {
     private int requestToFloor;
     private int requestNumber;
 
+    /**
+     * Constructor for a new request.
+     * The requestID is generated with the UUID class.
+     * @param requestNumber for identifying the request.
+     * @param requestFromFloor the floor from where the request is coming.
+     * @param requestToFloor the floor to where the request is going
+     * @throws ElevatorException
+     * @see UUID
+     */
     public Request(int requestNumber, int requestFromFloor, int requestToFloor) throws ElevatorException {
         requestID = UUID.randomUUID().toString();
         this.requestNumber = requestNumber;
@@ -19,8 +28,8 @@ public class Request {
     }
 
     /**
-     * Checks if requestFromFloor is valid
-     * @param requestFromFloor
+     * Checks if requestFromFloor is valid.
+     * @param requestFromFloor floor where the request is coming from.
      * @throws ElevatorException
      */
     public void setRequestFromFloor(int requestFromFloor) throws ElevatorException {
@@ -32,8 +41,8 @@ public class Request {
     }
 
     /**
-     * Checks if requestToFloor is valid
-     * @param requestToFloor
+     * Checks if requestToFloor is valid.
+     * @param requestToFloor floor from where the request is going to.
      * @throws ElevatorException
      */
     public void setRequestToFloor(int requestToFloor) throws ElevatorException {
@@ -44,26 +53,34 @@ public class Request {
         }
     }
 
-    public String isGoingUp() {
-        return requestFromFloor > requestToFloor ? "down" : "up";
-    }
-
-    public String getRequestID() {
-        return requestID;
-    }
-
+    /**
+     *
+     * @return
+     */
     public int getRequestFromFloor() {
         return requestFromFloor;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getRequestToFloor() {
         return requestToFloor;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getRequestNumber() {
         return requestNumber;
     }
 
+    /**
+     * Returns a {@code String} object representing this {@code Request}.
+     * @return A String representation of this {@code Request}
+     */
     @Override
     public String toString() {
         return "Request{" +

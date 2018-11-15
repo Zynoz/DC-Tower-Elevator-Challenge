@@ -1,17 +1,25 @@
 package model;
 
+/**
+ * A class that manages all elevators.
+ */
 public class ElevatorManagment {
-    private ElevatorPool elevatorPool = new ElevatorPool();
-    private RequestPool requestPool = new RequestPool();
+    private final ElevatorPool elevatorPool = new ElevatorPool();
+    private final RequestPool requestPool = new RequestPool();
 
+    /**
+     * Default constructor which immediately calls the {@code start()} method.
+     * @see ElevatorManagment#start()
+     */
     public ElevatorManagment() {
         start();
     }
 
     /**
-     * This method checks if there are any new requests every second.
+     * In this method an infinite while loop calls the {@code workRequest()} method with a delay of one second.
+     * @see ElevatorManagment#workRequest()
      */
-    public void start() {
+    private void start() {
         Thread thread = new Thread(() -> {
             while (true) {
                 workRequest();
@@ -26,9 +34,11 @@ public class ElevatorManagment {
     }
 
     /**
-     * This method takes in a request and adds it to the request list.
-     * @param request request to add.
-     * @throws ElevatorException
+     * This method takes in a {@code Request} and adds it to the request list.
+     * @param request Request to be added.
+     * @throws ElevatorException An ElevatorException is thrown when there is an error adding this request.
+     * @see Request
+     * @see RequestPool#add(Request)
      */
     public void addRequest(Request request) throws ElevatorException {
         requestPool.add(request);
@@ -36,8 +46,21 @@ public class ElevatorManagment {
 
     /**
      * This method creates a new thread that runs through the elevator-procedure.
+     * If the {@code ElevatorPool} has a free elevator and the {@code RequestPool} has a new {@code Request} available, this request is assigned to the next free {@code Elevator} object.<br>
+     * Then this thread is paused for the delay it takes the elevator to reach the floor it is going to.<br>
+     * After that, the elevator's current floor is set to the destination floor of the request.<br>
+     * When the request is done, the elevator is 'returned' to the list of free elevators.<br>
+     * Finally the elevator id, the request number and the current floor number are printed to the command line.
+     * @see ElevatorPool
+     * @see ElevatorPool#returnElevator(Elevator)
+     * @see ElevatorPool#getFreeElevator(Request)
+     * @see ElevatorPool#hasFreeElevator()
+     * @see RequestPool
+     * @see RequestPool#hasNextRequest()
+     * @see RequestPool#getNextRequest()
+     * @see Elevator
+     * @see Request
      */
-    //TODO fix current floor!
     private synchronized void workRequest() {
         Thread thread = new Thread(() -> {
             if (elevatorPool.hasFreeElevator() && requestPool.hasNextRequest()) {
