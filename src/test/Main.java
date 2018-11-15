@@ -47,7 +47,5 @@ public class Main {
         } catch (ElevatorException e) {
             System.out.println(e.getMessage());
         }
-
-
     }
 }

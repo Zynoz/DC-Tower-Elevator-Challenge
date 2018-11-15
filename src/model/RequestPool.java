@@ -13,7 +13,7 @@ public class RequestPool {
     }
 
     /**
-     * Checks if request is valid and not already in list and adds it to tbe request list.
+     * Checks if request is valid, not already in list and adds it to tbe request list.
      * @param request
      * @throws ElevatorException
      */
