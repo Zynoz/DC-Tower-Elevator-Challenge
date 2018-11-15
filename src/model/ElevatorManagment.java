@@ -5,12 +5,12 @@ public class ElevatorManagment {
     private RequestPool requestPool = new RequestPool();
 
     public ElevatorManagment() {
-
+        start();
     }
 
     public void start() {
         Thread thread = new Thread(() -> {
-            while (requestPool.hasNextRequest()) {
+            while (true) {
                 workRequest();
                 try {
                     Thread.sleep(1000);
@@ -20,7 +20,6 @@ public class ElevatorManagment {
             }
         });
         thread.start();
-        System.out.println("done");
     }
 
     /**
@@ -42,8 +41,7 @@ public class ElevatorManagment {
                 Elevator elevator = elevatorPool.getFreeElevator();
                 Request request = requestPool.getNextRequest();
                 elevator.setCurrentRequest(request);
-
-                System.out.println("Elevator " + elevator.getElevatorID() + " is going from floor " + elevator.getCurrentFloor() + " to floor " + elevator.getGoingTo() + "; Direction: " + elevator.isGoingUp());
+                System.out.println("Elevator " + elevator.getElevatorID() + ": current floor: " + elevator.getCurrentFloor() + ", destination floor: " + elevator.getGoingTo() + " direction: " + elevator.isGoingUp());
 
                 //Time it takes the elevator to fulfil the request
                 try {

@@ -5,7 +5,6 @@ public class Elevator {
     private int currentFloor;
     private int goingTo;
     private Request currentRequest;
-    private int delay;
     private boolean inUse;
 
     public Elevator(int elevatorID) {
@@ -33,9 +32,14 @@ public class Elevator {
         return currentRequest.getRequestToFloor();
     }
 
-    public void setCurrentRequest(Request request) {
-        this.currentRequest = request;
-        goingTo = currentRequest.getRequestToFloor();
+    public void setCurrentRequest(Request request)  {
+        if (request != null) {
+            this.currentRequest = request;
+            goingTo = currentRequest.getRequestToFloor();
+            currentFloor = currentRequest.getRequestFromFloor();
+        } else {
+            System.out.println("Request not valid");
+        }
     }
 
     public boolean isInUse() {

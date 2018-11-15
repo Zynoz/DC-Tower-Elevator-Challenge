@@ -45,6 +45,6 @@ public class ElevatorPool {
 
     public void returnElevator(Elevator elevator) {
         elevator.setInUse(false);
-        System.out.println("Elevator " + elevator.getElevatorID() + " is free again");
+//        System.out.println("Elevator " + elevator.getElevatorID() + " is free again");
     }
 }
