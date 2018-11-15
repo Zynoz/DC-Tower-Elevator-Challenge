@@ -9,9 +9,11 @@ public class Request {
     private String requestID;
     private int requestFromFloor;
     private int requestToFloor;
+    private int requestNumber;
 
-    public Request(int requestFromFloor, int requestToFloor) throws ElevatorException {
+    public Request(int requestNumber, int requestFromFloor, int requestToFloor) throws ElevatorException {
         requestID = UUID.randomUUID().toString();
+        this.requestNumber = requestNumber;
         setRequestFromFloor(requestFromFloor);
         setRequestToFloor(requestToFloor);
     }
@@ -56,6 +58,10 @@ public class Request {
 
     public int getRequestToFloor() {
         return requestToFloor;
+    }
+
+    public int getRequestNumber() {
+        return requestNumber;
     }
 
     @Override

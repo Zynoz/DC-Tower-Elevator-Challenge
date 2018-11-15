@@ -8,6 +8,9 @@ public class ElevatorManagment {
         start();
     }
 
+    /**
+     * This method checks if there are any new requests every second.
+     */
     public void start() {
         Thread thread = new Thread(() -> {
             while (true) {
@@ -23,8 +26,8 @@ public class ElevatorManagment {
     }
 
     /**
-     * This method takes in a request and adds it to the request list
-     * @param request request to add
+     * This method takes in a request and adds it to the request list.
+     * @param request request to add.
      * @throws ElevatorException
      */
     public void addRequest(Request request) throws ElevatorException {
@@ -32,7 +35,7 @@ public class ElevatorManagment {
     }
 
     /**
-     * This method creates a new thread that runs through the elevator-procedure
+     * This method creates a new thread that runs through the elevator-procedure.
      */
     //TODO fix current floor!
     private synchronized void workRequest() {
@@ -51,7 +54,7 @@ public class ElevatorManagment {
 
                 elevator.setCurrentFloor();
                 elevatorPool.returnElevator(elevator);
-                System.out.println("Elevator " + elevator.getElevatorID() + " is now done with " + elevator.getCurrentRequest().getRequestID() + " and on floor " + elevator.getCurrentFloor());
+                System.out.println("Elevator " + elevator.getElevatorID() + " is now done with request number " + elevator.getCurrentRequest().getRequestNumber() + " and on floor " + elevator.getCurrentFloor());
             }
         });
         thread.start();

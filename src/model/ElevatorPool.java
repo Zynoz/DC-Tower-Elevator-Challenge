@@ -3,13 +3,13 @@ package model;
 import java.util.ArrayList;
 
 /**
- * This class manages the seven elevators
+ * This class manages the seven elevators.
  */
 public class ElevatorPool {
     private volatile ArrayList<Elevator> elevators = new ArrayList<>(7);
 
     /**
-     * Creates the seven elevators and adds them to the elevator list
+     * Creates the seven elevators and adds them to the elevator list.
      */
     public ElevatorPool() {
         Elevator e1 = new Elevator(1);
@@ -30,9 +30,9 @@ public class ElevatorPool {
     }
 
     /**
-     * loops through all elevators and returns a free one
-     * @param request the request to assign to the elevator
-     * @return null if no free elevator is available
+     * Loops through all elevators and returns a free one.
+     * @param request the request to assign to the elevator.
+     * @return null if no free elevator is available.
      */
     public synchronized Elevator getFreeElevator(Request request) {
         for (Elevator e : elevators) {
@@ -47,7 +47,7 @@ public class ElevatorPool {
     }
 
     /**
-     * @return true if there is at least one free elevator
+     * @return true if there is at least one free elevator.
      */
     public synchronized boolean hasFreeElevator() {
         for (Elevator e : elevators) {
@@ -59,7 +59,7 @@ public class ElevatorPool {
     }
 
     /**
-     * If an elevator is done with its request, it is returned to the free list of elevators
+     * If an elevator is done with its request, it is returned to the free list of elevators.
      * @param elevator
      */
     public void returnElevator(Elevator elevator) {
