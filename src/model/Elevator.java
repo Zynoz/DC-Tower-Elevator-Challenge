@@ -1,5 +1,8 @@
 package model;
 
+/**
+ * This class represents each of the seven elevators.
+ */
 public class Elevator {
     private int elevatorID;
     private int currentFloor;
@@ -32,6 +35,10 @@ public class Elevator {
         return currentRequest.getRequestToFloor();
     }
 
+    /**
+     * Checks if given request is valid
+     * @param request
+     */
     public void setCurrentRequest(Request request)  {
         if (request != null) {
             this.currentRequest = request;

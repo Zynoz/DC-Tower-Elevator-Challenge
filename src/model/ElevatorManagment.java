@@ -38,9 +38,8 @@ public class ElevatorManagment {
     private synchronized void workRequest() {
         Thread thread = new Thread(() -> {
             if (elevatorPool.hasFreeElevator() && requestPool.hasNextRequest()) {
-                Elevator elevator = elevatorPool.getFreeElevator();
                 Request request = requestPool.getNextRequest();
-                elevator.setCurrentRequest(request);
+                Elevator elevator = elevatorPool.getFreeElevator(request);
                 System.out.println("Elevator " + elevator.getElevatorID() + ": current floor: " + elevator.getCurrentFloor() + ", destination floor: " + elevator.getGoingTo() + " direction: " + elevator.isGoingUp());
 
                 //Time it takes the elevator to fulfil the request

@@ -2,9 +2,15 @@ package model;
 
 import java.util.ArrayList;
 
+/**
+ * This class manages the seven elevators
+ */
 public class ElevatorPool {
     private volatile ArrayList<Elevator> elevators = new ArrayList<>(7);
 
+    /**
+     * Creates the seven elevators and adds them to the elevator list
+     */
     public ElevatorPool() {
         Elevator e1 = new Elevator(1);
         Elevator e2 = new Elevator(2);
@@ -23,10 +29,16 @@ public class ElevatorPool {
         elevators.add(e7);
     }
 
-    public synchronized Elevator getFreeElevator() {
+    /**
+     * loops through all elevators and returns a free one
+     * @param request the request to assign to the elevator
+     * @return null if no free elevator is available
+     */
+    public synchronized Elevator getFreeElevator(Request request) {
         for (Elevator e : elevators) {
             if (!e.isInUse()) {
                 e.setInUse(true);
+                e.setCurrentRequest(request);
                 System.out.println("Elevator " + e.getElevatorID() + " in use now");
                 return e;
             }
@@ -34,6 +46,9 @@ public class ElevatorPool {
         return null;
     }
 
+    /**
+     * @return true if there is at least one free elevator
+     */
     public synchronized boolean hasFreeElevator() {
         for (Elevator e : elevators) {
             if (!e.isInUse()) {
@@ -43,8 +58,11 @@ public class ElevatorPool {
         return false;
     }
 
+    /**
+     * If an elevator is done with its request, it is returned to the free list of elevators
+     * @param elevator
+     */
     public void returnElevator(Elevator elevator) {
         elevator.setInUse(false);
-//        System.out.println("Elevator " + elevator.getElevatorID() + " is free again");
     }
 }

@@ -2,6 +2,9 @@ package model;
 
 import java.util.UUID;
 
+/**
+ * This class represents a request and stores a unique request ID, the request from and to to floor.
+ */
 public class Request {
     private String requestID;
     private int requestFromFloor;
@@ -13,6 +16,11 @@ public class Request {
         setRequestToFloor(requestToFloor);
     }
 
+    /**
+     * Checks if requestFromFloor is valid
+     * @param requestFromFloor
+     * @throws ElevatorException
+     */
     public void setRequestFromFloor(int requestFromFloor) throws ElevatorException {
         if ((requestFromFloor < 0) || requestFromFloor > 55) {
             throw new ElevatorException("Invalid floor number");
@@ -21,6 +29,11 @@ public class Request {
         }
     }
 
+    /**
+     * Checks if requestToFloor is valid
+     * @param requestToFloor
+     * @throws ElevatorException
+     */
     public void setRequestToFloor(int requestToFloor) throws ElevatorException {
         if ((requestToFloor < 0) || requestToFloor > 55) {
             throw new ElevatorException("Invalid floor number");
