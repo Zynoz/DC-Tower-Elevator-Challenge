@@ -68,7 +68,6 @@ public class ElevatorManagment {
                 Elevator elevator = elevatorPool.getFreeElevator(request);
                 System.out.println("Elevator " + elevator.getElevatorID() + ": current floor: " + elevator.getCurrentFloor() + ", destination floor: " + elevator.getGoingTo() + " direction: " + elevator.isGoingUp());
 
-                //Time it takes the elevator to fulfil the request
                 try {
                     Thread.sleep(elevator.getDelay());
                 } catch (InterruptedException e) {
