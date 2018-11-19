@@ -1,7 +1,7 @@
 package model;
 
 /**
- * This class represents an elevators.
+ * This class represents an elevator.
  */
 public class Elevator {
     private int elevatorID;
