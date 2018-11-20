@@ -1,16 +1,19 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author Maximilian Moser
  * This class manages the seven elevators.
  */
+@SuppressWarnings("WeakerAccess")
 public class ElevatorPool {
-    private volatile ArrayList<Elevator> elevators = new ArrayList<>(7);
+    private final List<Elevator> elevators = Collections.synchronizedList(new ArrayList<>(7));
 
     /**
-     * Creates the seven elevators and adds them to the elevator list.
+     * Creates the seven elevators and adds them to the elevator elevators.
      * @see Elevator
      */
     public ElevatorPool() {
@@ -39,12 +42,14 @@ public class ElevatorPool {
      * @see Request
      */
     public synchronized Elevator getFreeElevator(Request request) {
-        for (Elevator e : elevators) {
-            if (!e.isInUse()) {
-                e.setInUse(true);
-                e.setCurrentRequest(request);
-                System.out.println("Elevator " + e.getElevatorID() + " in use now");
-                return e;
+        synchronized (elevators) {
+            for (Elevator e : elevators) {
+                if (!e.isInUse()) {
+                    e.setInUse(true);
+                    e.setCurrentRequest(request);
+                    System.out.println("Elevator " + e.getElevatorID() + " in use now");
+                    return e;
+                }
             }
         }
         return null;
@@ -56,20 +61,22 @@ public class ElevatorPool {
      * @see Elevator
      */
     public synchronized boolean hasFreeElevator() {
-        for (Elevator e : elevators) {
-            if (!e.isInUse()) {
-                return true;
+        synchronized (elevators) {
+            for (Elevator e : elevators) {
+                if (!e.isInUse()) {
+                    return true;
+                }
             }
         }
         return false;
     }
 
     /**
-     * If an {@code Elevator} is done with its request, it is 'returned' to the free list of elevators.
+     * If an {@code Elevator} is done with its request, it is 'returned' to the free elevators of elevators.
      * @param elevator to return.
      * @see Elevator
      */
-    public void returnElevator(Elevator elevator) {
+    public synchronized void returnElevator(Elevator elevator) {
         elevator.setInUse(false);
     }
 }

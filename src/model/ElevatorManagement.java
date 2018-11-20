@@ -1,27 +1,41 @@
 package model;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 /**
+ * @author Maximilian Moser
  * A class that manages all elevators.
  */
-public class ElevatorManagment {
+public class ElevatorManagement {
     private final ElevatorPool elevatorPool = new ElevatorPool();
     private final RequestPool requestPool = new RequestPool();
+    private AtomicBoolean state = new AtomicBoolean(false);
 
     /**
      * Default constructor which immediately calls the {@code start()} method.
-     * @see ElevatorManagment#start()
+     * @see ElevatorManagement#start()
      */
-    public ElevatorManagment() {
-        start();
+    public ElevatorManagement() {
+
+    }
+
+
+    @SuppressWarnings("unused")
+    public AtomicBoolean getState() {
+        return state;
+    }
+
+    public void setState(boolean state) {
+        this.state.set(state);
     }
 
     /**
      * In this method an infinite while loop calls the {@code workRequest()} method with a delay of one second.
-     * @see ElevatorManagment#workRequest()
+     * @see ElevatorManagement#workRequest()
      */
-    private void start() {
+    public void start() {
         Thread thread = new Thread(() -> {
-            while (true) {
+            while (state.get()) {
                 workRequest();
                 try {
                     Thread.sleep(1000);
@@ -61,7 +75,7 @@ public class ElevatorManagment {
      * @see Elevator
      * @see Request
      */
-    private synchronized void workRequest() {
+    private void workRequest() {
         Thread thread = new Thread(() -> {
             if (elevatorPool.hasFreeElevator() && requestPool.hasNextRequest()) {
                 Request request = requestPool.getNextRequest();

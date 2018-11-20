@@ -1,8 +1,10 @@
 package model;
 
 /**
+ * @author Maximilian Moser
  * This class represents an elevators.
  */
+@SuppressWarnings("WeakerAccess")
 public class Elevator {
     private int elevatorID;
     private int currentFloor;
@@ -10,6 +12,10 @@ public class Elevator {
     private Request currentRequest;
     private boolean inUse;
 
+    /**
+     * Constructor that takes in an elevatorID.
+     * @param elevatorID The ID for the elevator
+     */
     public Elevator(int elevatorID) {
         this.elevatorID = elevatorID;
         currentFloor = 0;
@@ -19,6 +25,7 @@ public class Elevator {
         this.currentFloor = currentRequest.getRequestToFloor();
     }
 
+    @SuppressWarnings("unused")
     public void setGoingTo(int goingTo) {
         this.goingTo = goingTo;
     }
@@ -36,19 +43,18 @@ public class Elevator {
     }
 
     /**
-     * Checks if given request is valid
-     * @param request
+     * Checks if given request is valid.
+     * @param request Request to bind to the elevator.
      */
-    public void setCurrentRequest(Request request)  {
+    public void setCurrentRequest(Request request) {
         if (request != null) {
             this.currentRequest = request;
             goingTo = currentRequest.getRequestToFloor();
             currentFloor = currentRequest.getRequestFromFloor();
-        } else {
-            System.out.println("Request not valid");
         }
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public boolean isInUse() {
         return inUse;
     }
@@ -63,12 +69,16 @@ public class Elevator {
 
     /**
      * Calculates how long the elevator takes to get to the destination floor.
-     * @return duration in milliseconds
+     * Every floor adds one second to the travel time.
+     * @return Returns the duration it takes the elevator in milliseconds.
      */
     public int getDelay() {
         return Math.abs(currentRequest.getRequestToFloor() - currentRequest.getRequestFromFloor()) * 1000;
     }
 
+    /**
+     * @return Returns 'down' if the current floor is higher than the floor the elevator is going to. Otherwise it returns 'up'.
+     */
     public String isGoingUp() {
         return currentFloor > goingTo ? "down" : "up";
     }

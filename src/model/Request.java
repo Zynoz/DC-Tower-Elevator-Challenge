@@ -3,8 +3,10 @@ package model;
 import java.util.UUID;
 
 /**
+ * @author Maximilian Moser
  * This class represents a request and stores a unique request ID, the request from and to to floor.
  */
+@SuppressWarnings("WeakerAccess")
 public class Request {
     private String requestID;
     private int requestFromFloor;
@@ -53,33 +55,21 @@ public class Request {
         }
     }
 
-    /**
-     *
-     * @return
-     */
     public int getRequestFromFloor() {
         return requestFromFloor;
     }
 
-    /**
-     *
-     * @return
-     */
     public int getRequestToFloor() {
         return requestToFloor;
     }
 
-    /**
-     *
-     * @return
-     */
     public int getRequestNumber() {
         return requestNumber;
     }
 
     /**
      * Returns a {@code String} object representing this {@code Request}.
-     * @return A String representation of this {@code Request}
+     * @return Returns a string representation of this {@code Request}
      */
     @Override
     public String toString() {
