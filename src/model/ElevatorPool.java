@@ -72,7 +72,7 @@ public class ElevatorPool {
     }
 
     /**
-     * If an {@code Elevator} is done with its request, it is 'returned' to the free elevators of elevators.
+     * If an {@code Elevator} is done with its request, it is 'returned' to the free elevators of the list elevators.
      * @param elevator to return.
      * @see Elevator
      */
