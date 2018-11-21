@@ -1,7 +1,6 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -10,7 +9,7 @@ import java.util.List;
  */
 @SuppressWarnings("WeakerAccess")
 public class RequestPool {
-    private final List<Request> requests = Collections.synchronizedList(new ArrayList<>());
+    private final List<Request> requests = new ArrayList<>();
 
     public RequestPool() {
 

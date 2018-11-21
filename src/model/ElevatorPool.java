@@ -1,7 +1,6 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -10,7 +9,7 @@ import java.util.List;
  */
 @SuppressWarnings("WeakerAccess")
 public class ElevatorPool {
-    private final List<Elevator> elevators = Collections.synchronizedList(new ArrayList<>(7));
+    private final List<Elevator> elevators = new ArrayList<>(7);
 
     /**
      * Creates the seven elevators and adds them to the elevator elevators.
@@ -42,7 +41,6 @@ public class ElevatorPool {
      * @see Request
      */
     public synchronized Elevator getFreeElevator(Request request) {
-        synchronized (elevators) {
             for (Elevator e : elevators) {
                 if (!e.isInUse()) {
                     e.setInUse(true);
@@ -51,7 +49,6 @@ public class ElevatorPool {
                     return e;
                 }
             }
-        }
         return null;
     }
 
@@ -61,13 +58,11 @@ public class ElevatorPool {
      * @see Elevator
      */
     public synchronized boolean hasFreeElevator() {
-        synchronized (elevators) {
             for (Elevator e : elevators) {
                 if (!e.isInUse()) {
                     return true;
                 }
             }
-        }
         return false;
     }
 
